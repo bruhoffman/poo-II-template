@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { TAccountDB, TAccountDBPost, TUserDB, TUserDBPost } from './types'
-import { db } from './database/knex'
 import { User } from './models/User'
 import { Account } from './models/Account'
+import { UserDatabase } from './database/UserDatabase'
 
 const app = express()
 
@@ -32,19 +32,13 @@ app.get("/ping", async (req: Request, res: Response) => {
     }
 })
 
+const USER_DB = new UserDatabase
+
 app.get("/users", async (req: Request, res: Response) => {
     try {
-        const q = req.query.q
+        const q = req.query.q as string | undefined
 
-        let usersDB
-
-        if (q) {
-            const result: TUserDB[] = await db("users").where("name", "LIKE", `%${q}%`)
-            usersDB = result
-        } else {
-            const result: TUserDB[] = await db("users")
-            usersDB = result
-        }
+        const usersDB: TUserDB[] = await USER_DB.findUsers(q)
 
         const users: User[] = usersDB.map((userDB) => new User(
             userDB.id,
@@ -55,6 +49,7 @@ app.get("/users", async (req: Request, res: Response) => {
         ))
 
         res.status(200).send(users)
+
     } catch (error) {
         console.log(error)
 
@@ -70,6 +65,7 @@ app.get("/users", async (req: Request, res: Response) => {
     }
 })
 
+/* 
 app.post("/users", async (req: Request, res: Response) => {
     try {
         const { id, name, email, password } = req.body
@@ -198,7 +194,6 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
     }
 })
 
-
 app.post("/accounts", async (req: Request, res: Response) => {
     try {
         const { id, ownerId } = req.body
@@ -295,4 +290,4 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
             res.send("Erro inesperado")
         }
     }
-})
+}) */
