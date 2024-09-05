@@ -1,4 +1,4 @@
-export type TUserDB = {
+export interface UserDB {
     id: string,
     name: string,
     email: string,
@@ -7,14 +7,14 @@ export type TUserDB = {
 }
 
 // tipagem para criação (POST) sem created_at
-export type TUserDBPost = {
+export interface UserDBPost {
     id: string,
     name: string,
     email: string,
     password: string
 }
 
-export type TAccountDB = {
+export interface AccountDB {
     id: string,
     balance: number,
     owner_id: string,
@@ -22,7 +22,7 @@ export type TAccountDB = {
 }
 
 // tipagem para criação (POST) sem balance e created_at
-export type TAccountDBPost = {
+export interface AccountDBPost {
     id: string,
     owner_id: string
 }
