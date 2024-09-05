@@ -3,3 +3,31 @@ GET http://localhost:3003/ping
 
 GET http://localhost:3003/users
 ###
+
+GET http://localhost:3003/users/u001
+###
+
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "id": "u003",
+    "name": "Ciclana",
+    "email": "ciclana@email.com",
+    "password": "098398474"
+}
+###
+
+GET http://localhost:3003/accounts
+###
+
+GET http://localhost:3003/accounts/a003/balance
+###
+
+POST http://localhost:3003/accounts
+Content-Type: application/json
+
+{
+    "id":"a003",
+    "ownerId": "u003"
+}
