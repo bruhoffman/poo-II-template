@@ -4,7 +4,7 @@ GET http://localhost:3003/ping
 GET http://localhost:3003/users
 ###
 
-GET http://localhost:3003/users/u001
+GET http://localhost:3003/users/u003
 ###
 
 POST http://localhost:3003/users
@@ -31,3 +31,12 @@ Content-Type: application/json
     "id":"a003",
     "ownerId": "u003"
 }
+###
+
+PUT http://localhost:3003/accounts/a001/balance
+Content-Type: application/json
+
+{
+    "value": 1000
+}
+###

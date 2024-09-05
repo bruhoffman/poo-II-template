@@ -100,7 +100,6 @@ app.get("/users/:id", async (req: Request, res: Response) => {
     }
 })
 
-
 app.post("/users", async (req: Request, res: Response) => {
     try {
         const { id, name, email, password } = req.body
@@ -285,7 +284,7 @@ app.post("/accounts", async (req: Request, res: Response) => {
         }
     }
 })
-/*
+
 app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
     try {
         const id = req.params.id
@@ -296,7 +295,7 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
             throw new Error("'value' deve ser number")
         }
 
-        const [ accountDB ]: [] | undefined[] = await db("accounts").where({ id })
+        const accountDB = await ACCOUNT_DB.findAccountById(id)
 
         if (!accountDB) {
             res.status(404)
@@ -313,9 +312,10 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
         const newBalance = account.getBalance() + value
         account.setBalance(newBalance)
 
-        await db("accounts").update({ balance: newBalance }).where({ id })
-        
+        await ACCOUNT_DB.updateBalanceById(id, value)
+       
         res.status(200).send(account)
+        
     } catch (error) {
         console.log(error)
 
@@ -329,4 +329,4 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
             res.send("Erro inesperado")
         }
     }
-}) */
+})
