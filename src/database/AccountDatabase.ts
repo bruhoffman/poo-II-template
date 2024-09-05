@@ -31,4 +31,12 @@ export class AccountDatabase extends BaseDatabase {
             .insert(newAccountDB)
     }
 
+    public async updateBalanceById(id: string, newBalance: number) {
+
+        await BaseDatabase
+        .connection(AccountDatabase.TABLE_ACCOUNTS)
+        .update({ balance: newBalance })
+        .where({ id })
+    }
+
 }
